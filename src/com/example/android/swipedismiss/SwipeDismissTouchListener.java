@@ -18,14 +18,17 @@
 
 package com.example.android.swipedismiss;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.animation.ValueAnimator;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
+import com.nineoldandroids.animation.Animator;
+import com.nineoldandroids.animation.AnimatorListenerAdapter;
+import com.nineoldandroids.animation.ValueAnimator;
+
+import static com.nineoldandroids.view.ViewPropertyAnimator.animate;
+import static com.nineoldandroids.view.animation.AnimatorProxy.wrap;
 
 /**
  * A {@link android.view.View.OnTouchListener} that makes any {@link View} dismissable when the
@@ -149,7 +152,7 @@ public class SwipeDismissTouchListener implements View.OnTouchListener {
                 }
                 if (dismiss) {
                     // dismiss
-                    mView.animate()
+                    animate(mView)
                             .translationX(dismissRight ? mViewWidth : -mViewWidth)
                             .alpha(0)
                             .setDuration(mAnimationTime)
@@ -194,9 +197,9 @@ public class SwipeDismissTouchListener implements View.OnTouchListener {
 
                 if (mSwiping) {
                     mTranslationX = deltaX;
-                    mView.setTranslationX(deltaX);
+                    wrap(mView).setTranslationX(deltaX);
                     // TODO: use an ease-out interpolator or such
-                    mView.setAlpha(Math.max(0f, Math.min(1f,
+                    wrap(mView).setAlpha(Math.max(0f, Math.min(1f,
                             1f - 2f * Math.abs(deltaX) / mViewWidth)));
                     return true;
                 }
@@ -221,8 +224,8 @@ public class SwipeDismissTouchListener implements View.OnTouchListener {
             public void onAnimationEnd(Animator animation) {
                 mCallback.onDismiss(mView, mToken);
                 // Reset view presentation
-                mView.setAlpha(1f);
-                mView.setTranslationX(0);
+                wrap(mView).setAlpha(1f);
+                wrap(mView).setTranslationX(0);
                 lp.height = originalHeight;
                 mView.setLayoutParams(lp);
             }

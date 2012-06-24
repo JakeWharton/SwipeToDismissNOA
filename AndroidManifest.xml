@@ -7,7 +7,7 @@
         android:versionName="1.0"
         >
 
-    <uses-sdk android:minSdkVersion="13" android:targetSdkVersion="15" />
+    <uses-sdk android:minSdkVersion="4" android:targetSdkVersion="15" />
 
     <application android:label="Swipe To Dismiss Demo">
 

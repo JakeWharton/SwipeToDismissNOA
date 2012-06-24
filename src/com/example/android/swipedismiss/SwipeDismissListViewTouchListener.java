@@ -18,9 +18,6 @@
 
 package com.example.android.swipedismiss;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.animation.ValueAnimator;
 import android.graphics.Rect;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
@@ -29,10 +26,16 @@ import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ListView;
+import com.nineoldandroids.animation.Animator;
+import com.nineoldandroids.animation.AnimatorListenerAdapter;
+import com.nineoldandroids.animation.ValueAnimator;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import static com.nineoldandroids.view.ViewPropertyAnimator.animate;
+import static com.nineoldandroids.view.animation.AnimatorProxy.wrap;
 
 /**
  * A {@link android.view.View.OnTouchListener} that makes the list items in a {@link ListView}
@@ -228,7 +231,7 @@ public class SwipeDismissListViewTouchListener implements View.OnTouchListener {
                     final View downView = mDownView; // mDownView gets null'd before animation ends
                     final int downPosition = mDownPosition;
                     ++mDismissAnimationRefCount;
-                    mDownView.animate()
+                    animate(mDownView)
                             .translationX(dismissRight ? mViewWidth : -mViewWidth)
                             .alpha(0)
                             .setDuration(mAnimationTime)
@@ -274,8 +277,8 @@ public class SwipeDismissListViewTouchListener implements View.OnTouchListener {
                 }
 
                 if (mSwiping) {
-                    mDownView.setTranslationX(deltaX);
-                    mDownView.setAlpha(Math.max(0f, Math.min(1f,
+                    wrap(mDownView).setTranslationX(deltaX);
+                    wrap(mDownView).setAlpha(Math.max(0f, Math.min(1f,
                             1f - 2f * Math.abs(deltaX) / mViewWidth)));
                     return true;
                 }
@@ -329,8 +332,8 @@ public class SwipeDismissListViewTouchListener implements View.OnTouchListener {
                     ViewGroup.LayoutParams lp;
                     for (PendingDismissData pendingDismiss : mPendingDismisses) {
                         // Reset view presentation
-                        pendingDismiss.view.setAlpha(1f);
-                        pendingDismiss.view.setTranslationX(0);
+                        wrap(pendingDismiss.view).setAlpha(1f);
+                        wrap(pendingDismiss.view).setTranslationX(0);
                         lp = pendingDismiss.view.getLayoutParams();
                         lp.height = originalHeight;
                         pendingDismiss.view.setLayoutParams(lp);
