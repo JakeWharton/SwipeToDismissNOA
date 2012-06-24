@@ -243,7 +243,7 @@ public class SwipeDismissListViewTouchListener implements View.OnTouchListener {
                             });
                 } else {
                     // cancel
-                    mDownView.animate()
+                    animate(mDownView)
                             .translationX(0)
                             .alpha(1)
                             .setDuration(mAnimationTime)

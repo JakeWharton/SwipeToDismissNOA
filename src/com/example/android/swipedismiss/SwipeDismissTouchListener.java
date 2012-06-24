@@ -164,7 +164,7 @@ public class SwipeDismissTouchListener implements View.OnTouchListener {
                             });
                 } else {
                     // cancel
-                    mView.animate()
+                    animate(mView)
                             .translationX(0)
                             .alpha(1)
                             .setDuration(mAnimationTime)
