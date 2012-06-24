@@ -27,8 +27,9 @@ import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.AnimatorListenerAdapter;
 import com.nineoldandroids.animation.ValueAnimator;
 
+import static com.nineoldandroids.view.ViewHelper.setAlpha;
+import static com.nineoldandroids.view.ViewHelper.setTranslationX;
 import static com.nineoldandroids.view.ViewPropertyAnimator.animate;
-import static com.nineoldandroids.view.animation.AnimatorProxy.wrap;
 
 /**
  * A {@link android.view.View.OnTouchListener} that makes any {@link View} dismissable when the
@@ -197,9 +198,9 @@ public class SwipeDismissTouchListener implements View.OnTouchListener {
 
                 if (mSwiping) {
                     mTranslationX = deltaX;
-                    wrap(mView).setTranslationX(deltaX);
+                    setTranslationX(mView, deltaX);
                     // TODO: use an ease-out interpolator or such
-                    wrap(mView).setAlpha(Math.max(0f, Math.min(1f,
+                    setAlpha(mView, Math.max(0f, Math.min(1f,
                             1f - 2f * Math.abs(deltaX) / mViewWidth)));
                     return true;
                 }
@@ -224,8 +225,8 @@ public class SwipeDismissTouchListener implements View.OnTouchListener {
             public void onAnimationEnd(Animator animation) {
                 mCallback.onDismiss(mView, mToken);
                 // Reset view presentation
-                wrap(mView).setAlpha(1f);
-                wrap(mView).setTranslationX(0);
+                setAlpha(mView, 1f);
+                setTranslationX(mView, 0);
                 lp.height = originalHeight;
                 mView.setLayoutParams(lp);
             }

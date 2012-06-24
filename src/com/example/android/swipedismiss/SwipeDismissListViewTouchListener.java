@@ -34,8 +34,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import static com.nineoldandroids.view.ViewHelper.setAlpha;
+import static com.nineoldandroids.view.ViewHelper.setTranslationX;
 import static com.nineoldandroids.view.ViewPropertyAnimator.animate;
-import static com.nineoldandroids.view.animation.AnimatorProxy.wrap;
 
 /**
  * A {@link android.view.View.OnTouchListener} that makes the list items in a {@link ListView}
@@ -277,8 +278,8 @@ public class SwipeDismissListViewTouchListener implements View.OnTouchListener {
                 }
 
                 if (mSwiping) {
-                    wrap(mDownView).setTranslationX(deltaX);
-                    wrap(mDownView).setAlpha(Math.max(0f, Math.min(1f,
+                    setTranslationX(mDownView, deltaX);
+                    setAlpha(mDownView, Math.max(0f, Math.min(1f,
                             1f - 2f * Math.abs(deltaX) / mViewWidth)));
                     return true;
                 }
@@ -332,8 +333,8 @@ public class SwipeDismissListViewTouchListener implements View.OnTouchListener {
                     ViewGroup.LayoutParams lp;
                     for (PendingDismissData pendingDismiss : mPendingDismisses) {
                         // Reset view presentation
-                        wrap(pendingDismiss.view).setAlpha(1f);
-                        wrap(pendingDismiss.view).setTranslationX(0);
+                        setAlpha(pendingDismiss.view, 1f);
+                        setTranslationX(pendingDismiss.view, 0);
                         lp = pendingDismiss.view.getLayoutParams();
                         lp.height = originalHeight;
                         pendingDismiss.view.setLayoutParams(lp);
