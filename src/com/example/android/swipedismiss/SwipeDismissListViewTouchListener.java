@@ -122,10 +122,10 @@ public class SwipeDismissListViewTouchListener implements View.OnTouchListener {
      * @param callback The callback to trigger when the user has indicated that she would like to
      *                 dismiss one or more list items.
      */
-    public SwipeDismissListViewTouchListener(ListView listView, OnDismissCallback callback) {
+    public SwipeDismissListViewTouchListener(ListView listView, OnDismissCallback callback,int minFlingVelocity) {
         ViewConfiguration vc = ViewConfiguration.get(listView.getContext());
         mSlop = vc.getScaledTouchSlop();
-        mMinFlingVelocity = vc.getScaledMinimumFlingVelocity();
+        mMinFlingVelocity = minFlingVelocity;
         mMaxFlingVelocity = vc.getScaledMaximumFlingVelocity();
         mAnimationTime = listView.getContext().getResources().getInteger(
                 android.R.integer.config_shortAnimTime);
