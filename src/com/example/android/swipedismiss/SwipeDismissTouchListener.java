@@ -227,7 +227,7 @@ public class SwipeDismissTouchListener implements View.OnTouchListener {
                 // Reset view presentation
                 setAlpha(mView, 1f);
                 setTranslationX(mView, 0);
-                lp.height = originalHeight;
+              //  lp.height = originalHeight;
                 mView.setLayoutParams(lp);
             }
         });
@@ -235,7 +235,7 @@ public class SwipeDismissTouchListener implements View.OnTouchListener {
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                lp.height = (Integer) valueAnimator.getAnimatedValue();
+              //  lp.height = (Integer) valueAnimator.getAnimatedValue();
                 mView.setLayoutParams(lp);
             }
         });
