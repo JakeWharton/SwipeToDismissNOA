@@ -336,7 +336,7 @@ public class SwipeDismissListViewTouchListener implements View.OnTouchListener {
                         setAlpha(pendingDismiss.view, 1f);
                         setTranslationX(pendingDismiss.view, 0);
                         lp = pendingDismiss.view.getLayoutParams();
-                      //  lp.height = originalHeight;
+                        lp.height = ViewGroup.LayoutParams.WRAP_CONTENT;
                         pendingDismiss.view.setLayoutParams(lp);
                     }
 
@@ -348,7 +348,7 @@ public class SwipeDismissListViewTouchListener implements View.OnTouchListener {
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator valueAnimator) {
-              //  lp.height = (Integer) valueAnimator.getAnimatedValue();
+                lp.height = (Integer) valueAnimator.getAnimatedValue();
                 dismissView.setLayoutParams(lp);
             }
         });
