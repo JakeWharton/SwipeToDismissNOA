@@ -77,6 +77,7 @@ public class MainActivity extends ListActivity {
             dismissableButton.setLayoutParams(new ViewGroup.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
             dismissableButton.setText("Button " + (i + 1));
+            //Calling view.setOnClickListener() is necessary to detect the swype gesture
             dismissableButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
