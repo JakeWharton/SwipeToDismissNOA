@@ -2,9 +2,6 @@ buildscript {
     repositories {
         mavenCentral()
     }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:0.7.+'
-    }
 }
 apply plugin: 'android-library'
 
@@ -16,12 +13,12 @@ dependencies {
 }
 
 android {
-    compileSdkVersion 17
-    buildToolsVersion "17"
+    compileSdkVersion project.hasProperty("android_build_compileSdkVersion")?Integer.parseInt(project.android_build_compileSdkVersion):19
+    buildToolsVersion project.hasProperty("android_build_buildToolsVersion")?project.android_build_buildToolsVersion:'19.0.1'
 
     defaultConfig {
-        minSdkVersion 8
-        targetSdkVersion 17
+        minSdkVersion project.hasProperty("android_build_minSdkVersion")?Integer.parseInt(project.android_build_minSdkVersion):8
+        targetSdkVersion project.hasProperty("android_build_targetSdkVersion")?Integer.parseInt(project.android_build_targetSdkVersion):19
     }
     sourceSets {
         main {
