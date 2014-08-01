@@ -227,7 +227,7 @@ public class SwipeDismissTouchListener implements View.OnTouchListener {
                 // Reset view presentation
                 setAlpha(mView, 1f);
                 setTranslationX(mView, 0);
-                lp.height = originalHeight;
+                lp.height = ViewGroup.LayoutParams.WRAP_CONTENT;
                 mView.setLayoutParams(lp);
             }
         });

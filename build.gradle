@@ -1,0 +1,39 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+}
+apply plugin: 'android-library'
+
+dependencies {
+    repositories {
+        mavenCentral()
+    }
+    compile 'com.nineoldandroids:library:2.4.0'
+}
+
+android {
+    compileSdkVersion project.hasProperty("android_build_compileSdkVersion")?Integer.parseInt(project.android_build_compileSdkVersion):19
+    buildToolsVersion project.hasProperty("android_build_buildToolsVersion")?project.android_build_buildToolsVersion:'19.0.1'
+
+    defaultConfig {
+        minSdkVersion project.hasProperty("android_build_minSdkVersion")?Integer.parseInt(project.android_build_minSdkVersion):8
+        targetSdkVersion project.hasProperty("android_build_targetSdkVersion")?Integer.parseInt(project.android_build_targetSdkVersion):19
+    }
+    sourceSets {
+        main {
+            manifest.srcFile 'AndroidManifest.xml'
+            java.srcDirs = ['src']
+            resources.srcDirs = ['src']
+            aidl.srcDirs = ['src']
+            renderscript.srcDirs = ['src']
+            res.srcDirs = ['res']
+        }
+
+        instrumentTest.setRoot('tests')
+    }
+
+	lintOptions {
+		abortOnError false
+	}
+}
